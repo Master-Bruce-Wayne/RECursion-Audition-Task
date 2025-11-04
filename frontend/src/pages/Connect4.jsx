@@ -2,7 +2,9 @@ import React from 'react'
 
 const Connect4 = () => {
   return (
-    <div>Connect4</div>
+    <div>
+        <p>connect4</p>
+    </div>
   )
 }
 
