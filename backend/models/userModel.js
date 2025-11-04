@@ -1,7 +1,10 @@
 import mongoose, { mongo } from "mongoose";
 
 const userModel = new mongoose.Schema({
-    name: { 
+    fullName: { 
+        type:String, required:true,
+    },
+    username: {
         type:String, required:true,
     },
     email: {
@@ -14,7 +17,7 @@ const userModel = new mongoose.Schema({
         type:String, default:"" 
     },
     gender: { 
-        type:String, enum:["male","female"] ,required:true 
+        type:String, enum:["male","female"], required:true
     }
 }, {timestamps: true });
 
