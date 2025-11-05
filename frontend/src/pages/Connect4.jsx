@@ -46,7 +46,7 @@ const Connect4 = () => {
             }
         }
 
-        // check up- diagonal wise
+        // check up-right diagonal wise
         for(let r=rows-1; r>=3; r--) {
             for(let c=0; c<cols-3; c++) {
                 if (
@@ -108,7 +108,7 @@ const Connect4 = () => {
 
         <div className="flex justify-between w-full max-w-md mb-4">
             <p className="text-lg font-semibold text-red-500">🔴 Player1: {scores.R}</p>
-            <p className="text-lg font-semibold text-yellow-500">🟡 Y: {scores.Y}</p>
+            <p className="text-lg font-semibold text-yellow-500">🟡 Player2: {scores.Y}</p>
         </div>
 
         {winner && (
