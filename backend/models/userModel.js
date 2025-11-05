@@ -18,6 +18,9 @@ const userModel = new mongoose.Schema({
     },
     gender: { 
         type:String, enum:["male","female"], required:true
+    },
+    score: {
+        type:Number, required:true, default:0
     }
 }, {timestamps: true });
 
