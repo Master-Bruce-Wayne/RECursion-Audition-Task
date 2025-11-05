@@ -5,10 +5,10 @@ const userModel = new mongoose.Schema({
         type:String, required:true,
     },
     username: {
-        type:String, required:true,
+        type:String, required:true, unique:true
     },
     email: {
-        type:String, required:true,
+        type:String, required:true, unique:true
     },
     password: { 
         type:String, required:true 
@@ -20,7 +20,7 @@ const userModel = new mongoose.Schema({
         type:String, enum:["male","female"], required:true
     },
     score: {
-        type:Number, required:true, default:0
+        type:Number, default:0
     }
 }, {timestamps: true });
 
