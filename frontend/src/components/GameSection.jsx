@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
-import { GameContext } from '../context/GameContext'
+import { GameContext } from '../context/GameContext.jsx'
+import GameCard from './GameCard.jsx'
 
 const GameSection = () => {
   const {gameData, setGameData, loading, fetchGames} = useContext(GameContext);
@@ -12,11 +13,15 @@ const GameSection = () => {
   }, []);
 
   return (
-    <div>
+    <div className='flex gap-5 px-5 py-3'>
         {gameData && gameData.map((game) => (
-          <div key={game.code}>
-            <li className=''>{game.name}</li>
-          </div>
+          <GameCard
+            key={game._id}
+            name={game.name}
+            description={game.description}
+            thumbnail={game.thumbnail}
+            tags={game.tags}
+          />
         ))}
     </div>
   )
