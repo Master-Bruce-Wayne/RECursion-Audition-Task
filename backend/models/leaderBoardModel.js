@@ -24,4 +24,4 @@ const leaderboardModel = new mongoose.Schema(
 // ensure each player has one record per game
 leaderboardModel.index({ player: 1, game: 1 }, { unique: true });
 
-export default LeaderBoard = mongoose.model("Leaderboard", leaderboardModel);
+export const LeaderBoard = mongoose.model("LeaderBoard", leaderboardModel);
