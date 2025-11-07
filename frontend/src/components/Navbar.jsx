@@ -1,32 +1,70 @@
 import React from 'react'
-import { useNavigate, Link, NavLink } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+import { useAuth } from '../context/UserContext.jsx'
+import axios from 'axios'
 
-const Navbar = ({user,onLogout}) => {
+const Navbar = () => {
+  const {userData,setUserData} = useAuth();
+  const navigate = useNavigate();
+
+  const onLogout = async() => {
+    try {
+      const apiUrl = import.meta.env.VITE_API_BASE_URL;
+      const response = await axios.get(`${apiUrl}/user/logout`, { withCredentials: true });
+
+      if(response.data.success===false) {
+        alert(response.data.message || "Logout failed!");
+        navigate("/");
+        return;
+      }
+
+      setUserData(null);
+      localStorage.removeItem("userData");
+      navigate("/login");
+    } catch(err) {
+      console.error("Logout error:", err);
+      alert("Error while logging out.");
+    }
+  }
+
   return (
     <nav className="bg-white px-6 py-3 shadow-md flex justify-between items-center font-helvetica">
-      {/* Left - Brand / Logo */}
       <div
-        className="text-2xl  cursor-pointer"
+        className="text-2xl font-bold cursor-pointer"
         onClick={() => navigate("/")}
       >
-        Logo
+        Game-Maniac
       </div>
 
-      {/* manage routes  */}
-      {/* Center - Links */}
+      {/* Center - Navigation Links */}
       <div className="hidden md:flex space-x-6">
-        <Link to="/" className="text-gray-700 px-2 py-2 rounded-md hover:text-purple-600 hover:bg-gray-200 transition">Home</Link>
-        <Link to="/games" className="text-gray-700 px-2 py-2 rounded-md hover:text-purple-600 hover:bg-gray-200 transition">Games</Link>
-        <Link to="/leaderboard" className=" text-gray-700 px-2 py-2 rounded-md hover:text-purple-600 hover:bg-gray-200 transition">Leaderboard</Link>
+        <Link
+          to="/"
+          className="text-gray-700 px-2 py-2 rounded-md hover:text-purple-600 hover:bg-gray-200 transition"
+        >
+          Home
+        </Link>
+        <Link
+          to="/games"
+          className="text-gray-700 px-2 py-2 rounded-md hover:text-purple-600 hover:bg-gray-200 transition"
+        >
+          Games
+        </Link>
+        <Link
+          to="/leaderboard"
+          className="text-gray-700 px-2 py-2 rounded-md hover:text-purple-600 hover:bg-gray-200 transition"
+        >
+          Leaderboard
+        </Link>
       </div>
 
       {/* Right - Auth Section */}
       <div className="flex items-center space-x-4">
-        {!user ? (
+        {!userData ? (
           <>
             <Link
               to="/login"
-              className="bg-white text-purple-900 px-4 py-2 rounded-md font-semibold border border-b-purple-900 hover:bg-gray-200 transition"
+              className="bg-white text-purple-900 px-4 py-2 rounded-md font-semibold border border-purple-900 hover:bg-gray-200 transition"
             >
               Log in
             </Link>
@@ -39,8 +77,13 @@ const Navbar = ({user,onLogout}) => {
           </>
         ) : (
           <div className="relative group">
-            <button className="flex items-center space-x-2 bg-blue-600 px-3 py-1 rounded-md hover:bg-blue-500">
-              <span>{user.name}</span>
+            <button className="flex items-center space-x-2 bg-purple-700 px-3 py-1 text-white rounded-md hover:bg-purple-600">
+              <img
+                src={userData.profilePhoto}
+                alt="profile"
+                className="w-8 h-8 rounded-full border-2 border-white"
+              />
+              <span>{userData.username}</span>
               <span>▼</span>
             </button>
             <div className="absolute right-0 bg-white text-black mt-2 rounded-md shadow-lg hidden group-hover:block">
@@ -61,7 +104,7 @@ const Navbar = ({user,onLogout}) => {
         )}
       </div>
     </nav>
-  )
-}
+  );
+};
 
 export default Navbar
