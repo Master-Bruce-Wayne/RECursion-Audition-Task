@@ -5,7 +5,6 @@ export const UserContext = createContext(null);
 
 export const UserProvider = (props) => {
     const [userData,setUserData] = useState({});
-    
     return (
         <UserContext.Provider value={{userData,setUserData}} >
             {props.children}

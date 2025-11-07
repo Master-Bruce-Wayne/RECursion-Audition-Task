@@ -8,16 +8,16 @@ export const register = async(req,res)=> {
         const {fullName,username,email,password,confirmPassword, gender} = req.body;
         // console.log("req body: ",req.body);
         if(!fullName || !username || !email || !password || !confirmPassword || !gender) {
-            return res.status(400).json({message:"All fields are required"});
+            return res.status(400).json({success:false, message:"All fields are required"});
         }
 
         if(password !== confirmPassword){
-            return res.status(400).json({message:"Password do not match"});
+            return res.status(400).json({success:false, message:"Password do not match"});
         }
 
         const user = await User.findOne({username});
         if(user) {
-            return res.status(400).json({message:"Udsername already exists!"});
+            return res.status(400).json({success:false, message:"Udsername already exists!"});
         }
 
         const score=0;
@@ -44,7 +44,7 @@ export const login = async(req,res) => {
         const {username,password} = req.body;
         // console.log("req body: ",req.body);
         if(!username || !password) {
-            return res.status(400).json({message:"All fields are required"});
+            return res.status(400).json({success:false, message:"All fields are required"});
         };
 
         const user = await User.findOne({username});
@@ -70,6 +70,7 @@ export const login = async(req,res) => {
         return res.status(200).cookie("token", token, {
             maxAge:1*24*60*60*1000, httpOnly:true, sameSite:'strict'
         }).json({
+            success:true,
             _id:user._id,
             username:user.username,
             fullName:user.fullName,
@@ -87,6 +88,7 @@ export const login = async(req,res) => {
 export const logout = async(req,res) => {
     try {
         return res.status(200).cookie("token","", {maxAge:0}).json({
+            success:true,
             message:"logged out successfully!"
         })
     } catch(err) {
