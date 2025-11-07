@@ -18,6 +18,7 @@ const GameSection = () => {
           <GameCard
             key={game._id}
             name={game.name}
+            code = {game.code}
             description={game.description}
             thumbnail={game.thumbnail}
             tags={game.tags}

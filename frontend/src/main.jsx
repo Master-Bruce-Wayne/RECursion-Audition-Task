@@ -16,6 +16,7 @@ import Connect4 from './pages/Connect4.jsx'
 // contexts
 import { UserProvider } from './context/UserContext.jsx'
 import { GameProvider } from './context/GameContext.jsx'
+import Ludo from './pages/Ludo.jsx'
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -27,7 +28,8 @@ createRoot(document.getElementById("root")).render(
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<SignUp />} />
-            <Route path="/connect4" element={<Connect4 />} />
+            <Route path="/games/CONN-4" element={<Connect4 />} />
+            <Route path="/games/LUDO" element={<Ludo />} />
           </Routes>
         </GameProvider>
       </UserProvider>

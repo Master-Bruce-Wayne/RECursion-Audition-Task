@@ -4,7 +4,7 @@ import axios from 'axios';
 export const UserContext = createContext(null);
 
 export const UserProvider = (props) => {
-    const [userData,setUserData] = useState({});
+    const [userData,setUserData] = useState(null);
     return (
         <UserContext.Provider value={{userData,setUserData}} >
             {props.children}
