@@ -13,17 +13,23 @@ const GameSection = () => {
   }, []);
 
   return (
-    <div className='flex gap-5 px-5 py-3'>
-        {gameData && gameData.map((game) => (
-          <GameCard
-            key={game._id}
-            name={game.name}
-            code = {game.code}
-            description={game.description}
-            thumbnail={game.thumbnail}
-            tags={game.tags}
-          />
-        ))}
+    <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 px-5 py-3 justify-items-center'>
+        {gameData && gameData.length > 0 ? (
+          gameData.map((game) => (
+            <GameCard
+              key={game._id}
+              name={game.name}
+              code = {game.code}
+              description={game.description}
+              thumbnail={game.thumbnail}
+              tags={game.tags}
+            />
+          ))
+        ) : (
+          <div className="col-span-full text-center py-12">
+            <div className="text-purple-300 text-xl">Loading games...</div>
+          </div>
+        )}
     </div>
   )
 }

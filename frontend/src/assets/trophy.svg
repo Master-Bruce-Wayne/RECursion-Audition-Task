@@ -1,0 +1,12 @@
+<svg width="150" height="150" viewBox="0 0 150 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M75 20L85 40H105L90 55L95 75L75 65L55 75L60 55L45 40H65L75 20Z" fill="url(#trophyGrad)" opacity="0.4"/>
+  <rect x="60" y="75" width="30" height="50" rx="5" fill="url(#trophyGrad)" opacity="0.4"/>
+  <rect x="50" y="125" width="50" height="8" rx="4" fill="url(#trophyGrad)" opacity="0.4"/>
+  <defs>
+    <linearGradient id="trophyGrad" x1="45" y1="20" x2="105" y2="133" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FBBF24"/>
+      <stop offset="1" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+</svg>
+
