@@ -4,15 +4,30 @@ import dotenv from "dotenv"
 import connectDB from './config/database.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import { createServer } from 'http';
+import { Server } from 'socket.io';
 // routes
 import userRouter from './routes/userRoute.js'
 import gameRouter from './routes/gameRoute.js'
 import leaderBoardRouter from './routes/leaderBoardRoute.js';
+// import { setupSocketIO } from './socket/socketHandler.js';
+
 dotenv.config({});
 
-const app=express();
-
+const app = express();
 const PORT = process.env.PORT || 3000;
+
+// Create HTTP server
+const httpServer = createServer(app);
+
+// Initialize Socket.IO
+const io = new Server(httpServer, {
+    cors: {
+        origin: process.env.FRONTEND_URL || "http://localhost:5173",
+        credentials: true,
+        methods: ["GET", "POST"]
+    }
+});
 
 app.use(cors({
     // origin: process.env.FRONTEND_URL,
@@ -31,12 +46,16 @@ app.get('/', (req,res) => {
     return res.send("Kaam kar raha hai");
 });
 
+// Setup Socket.IO handlers
+// setupSocketIO(io);
+
 // connect db first then start server
 const startServer = async () => {
     try {
         await connectDB()
-        app.listen(PORT, "0.0.0.0",() => {
+        httpServer.listen(PORT, "0.0.0.0",() => {
             console.log(` Server running on port ${PORT}`)
+            console.log(` Socket.IO server ready`)
         })
     } catch (error) {
         console.error(" MongoDB connection failed:", error)

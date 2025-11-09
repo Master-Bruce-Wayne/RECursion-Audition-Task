@@ -6,7 +6,8 @@ const GameCard = ({ name,code, description,thumbnail, tags = [] }) => {
   const basicThumbnail = "https://as1.ftcdn.net/v2/jpg/05/24/96/86/1000_F_524968663_XfevnNL1BmgLovvweNEwgXBRe3SpQodS.jpg";
 
   const handlePlayNow = () => {
-    navigate(`/games/${code}`)
+    // navigate(`/games/${code}`)
+    navigate(`/games/${code}/room`);  // ek game specific room
   };
 
   return (
